@@ -5,6 +5,10 @@
     background-color: #3eb9e6;
 }
 
+.comp-list {
+    position: relative;
+}
+
 .create-btn {
     position: absolute;
     left: 50px;
@@ -54,7 +58,8 @@
 }
 
 .create-modal .modal-dialog .modal-content {
-    height: 600px;
+    margin-top: 200px;
+    height: 400px;
 }
 
 .create-page h3 {
@@ -91,4 +96,35 @@
 .link-input select {
     display: inline-block;
     width: calc(100% - 90px);
+}
+
+.img-input input {
+    display: inline-block;
+    width: calc(100% - 90px);
+}
+
+.img-input .upload-img {
+    position: relative;
+}
+
+.img-input .upload-img img {
+    width: 100px;
+    height: 100px;
+}
+
+/* .img-input .upload-img .uploadBackGround {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    background-image: url(../img/upload.jpg);
+} */
+
+.img-input .upload-img input {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    opacity: 0;
+    left: 80px;
+    top: 0;
 }

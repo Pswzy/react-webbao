@@ -7,10 +7,7 @@ import './right.css';
 class EditTextState extends Component {
     static propTypes = {
         activeElem: PropTypes.object,
-        changeFamily: PropTypes.func,
-        changeSize: PropTypes.func,
-        changeColor: PropTypes.func,
-        changeStyle: PropTypes.func
+        changeTextState: PropTypes.func
     }
 
     constructor(props) {
@@ -35,8 +32,8 @@ class EditTextState extends Component {
 
     render() {
         return (
-            <div className="edit-text-state">
-                <select className="form-control family" value={ this.props.activeElem.fontFamily } onChange={ (evt) => { this.props.changeFamily(evt.target.value) }} >
+            <div className="edit-text-state" onClick={(event) => { event.stopPropagation() }}>
+                <select className="form-control family" value={ this.props.activeElem.fontFamily } onChange={ (evt) => { this.props.changeTextState('fontFamily', evt.target.value) }} >
                     <option value ="微软雅黑">微软雅黑</option>
                     <option value ="宋体">宋体</option>
                 </select>
@@ -44,11 +41,11 @@ class EditTextState extends Component {
                     value={ this.props.activeElem.fontSize }
                     options={ this.state.fontSize.map(item => { return { value: item, label: item }; }) }
                     onChange={ (evt) => {
-                        this.props.changeSize(evt.value);
+                        this.props.changeTextState('fontSize', evt.value);
                     }}
                     clearable={ false }
                 />
-                <select className="form-control" value={ this.props.activeElem.fontColor } style={{backgroundColor: this.props.activeElem.fontColor }} onChange={ (evt) => { this.props.changeColor(evt.target.value) }}>
+                <select className="form-control" value={ this.props.activeElem.fontColor } style={{backgroundColor: this.props.activeElem.fontColor }} onChange={ (evt) => { this.props.changeTextState('fontColor', evt.target.value) }}>
                     <option value ="red" style={{ backgroundColor: 'red'}}></option>
                     <option value ="orange" style={{ backgroundColor: 'orange'}}></option>
                     <option value="yellow" style={{ backgroundColor: 'yellow'}}></option>
@@ -63,7 +60,7 @@ class EditTextState extends Component {
                     value={ this.props.activeElem.fontStyle }
                     options={ this.state.fontStyle.map(item => { return { value: item, label: item }; }) }
                     onChange={ (evt) => {
-                        this.props.changeStyle(evt.value);
+                        this.props.changeTextState('fontStyle', evt.value);
                     }}
                     clearable={ false }
                 />

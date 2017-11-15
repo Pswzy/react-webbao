@@ -10,14 +10,19 @@
     overflow: hidden;
 }
 
-.edit-text {
+.mid .content {
+    position: relative;
+}
+
+
+.text-comp .edit-text {
     width: 95%;
     border: 1px dashed red;
     margin: 10px;
     overflow-y: visible;
 }
 
-.view-text {
+.text-comp .view-text {
     width: 95%;
     min-height: 50px;
     border: 1px solid rgb(197, 191, 191);

@@ -30,3 +30,33 @@
     margin-left: 20%;
     width: 60%;
 }
+
+.edit-link-state .link-state-label-input {
+    margin: 5px auto;
+}
+
+.edit-link-state .link-state-label-input input {
+    display: inline-block;
+    margin-left: 10px;
+    width: 70%;
+}
+
+.edit-link-state .link-state-label-input select {
+    display: inline-block;
+    margin-left: 10px;
+    width: 70%;
+}
+
+.edit-img-state .img-state-label-input {
+    margin: 5px auto;
+}
+
+.edit-img-state .img-state-label-input input {
+    display: inline-block;
+    margin-left: 10px;
+    width: 70%;
+}
+
+.edit-img-state .img-state-label-input .img-state-scale {
+    width: 65%;
+}
