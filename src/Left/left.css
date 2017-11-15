@@ -1,0 +1,94 @@
+.left {
+    float: left;
+    width: 200px;
+    height: 100%;
+    background-color: #3eb9e6;
+}
+
+.create-btn {
+    position: absolute;
+    left: 50px;
+    bottom: 50px;
+    font-size: 20px;
+}
+
+.create-btn button{
+    border-radius: 5px;
+}
+
+.comp {
+    position: relative;
+    height: 40px;
+    background-color: #96958d40;
+    text-align: left;
+    line-height: 40px;
+    font-size: 20px;
+    border: 1px solid #b59e9e;
+}
+
+.comp span {
+    display: inline-block;
+    height: 40px;
+    margin: 0 5px;
+    line-height: 40px;
+}
+
+.comp span:first-child {
+    width: 165px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.comp span:last-child {
+    float: right;
+    font-size: 16px;
+    color: red;
+}
+
+.create-modal {
+    height: 100%;
+}
+
+.create-modal .modal-dialog {
+    height: 100%;
+}
+
+.create-modal .modal-dialog .modal-content {
+    height: 600px;
+}
+
+.create-page h3 {
+    position: absolute;
+    width: 70%;
+    line-height: 34px;
+    margin: auto;
+    text-align: center;
+}
+
+.create-page .pull-right button {
+    z-index: 2;
+    margin: 0 5px;
+}
+
+.create-page label {
+    margin: 0 10px;
+}
+
+.select-type {
+    margin: 5px auto;
+}
+
+.input-name input {
+    display: inline-block;
+    width: calc(100% - 80px);
+}
+
+.link-input input {
+    display: inline-block;
+    width: calc(100% - 90px);
+}
+
+.link-input select {
+    display: inline-block;
+    width: calc(100% - 90px);
+}

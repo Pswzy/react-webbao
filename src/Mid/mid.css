@@ -1,0 +1,28 @@
+.mid {
+    width: 490px;
+    height: 871px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -435px;
+    margin-left: -245px;
+    background-color: white;
+    overflow: hidden;
+}
+
+.edit-text {
+    width: 95%;
+    border: 1px dashed red;
+    margin: 10px;
+    overflow-y: visible;
+}
+
+.view-text {
+    width: 95%;
+    min-height: 50px;
+    border: 1px solid rgb(197, 191, 191);
+    margin: 10px;
+    padding: 6px 12px;
+    word-break: break-all;
+    text-align: left;
+}

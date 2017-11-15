@@ -1,0 +1,32 @@
+.right {
+    float: right;
+    width: 200px;
+    height: 100%;
+    background-color: #3eb9e6;
+}
+
+.export-btn {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    font-size: 20px;
+}
+
+.export-btn button{
+    border-radius: 5px;
+}
+
+.edit-text-state .form-control {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.edit-text-state .Select-control {
+    width: 60%;
+    margin: 5px 20%;
+}
+
+.edit-text-state .Select-menu-outer {
+    margin-left: 20%;
+    width: 60%;
+}
