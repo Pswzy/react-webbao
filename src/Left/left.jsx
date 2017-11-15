@@ -34,10 +34,10 @@ class Left extends Component {
     }
     dragEnd: Function = (event, index) => {
         let moveHeight = event.clientY - this.state.clientY;
-        let top = (index + 1) * 40 + moveHeight;
         let end = 0;
+        let number = Math.abs(Math.round(moveHeight / 40));
+        console.log(moveHeight, number);
         if (moveHeight > 0) {
-            var number = Math.round(moveHeight / 40);
             if (number + index < this.props.compList.length) {
                 end = number + index;
             } else {
@@ -45,7 +45,6 @@ class Left extends Component {
             }
         } else {
             moveHeight = -1 * moveHeight;
-            var number = Math.round(moveHeight / 40);
             if (number >= index) {
                 end = 0;
             } else {
@@ -69,11 +68,11 @@ class Left extends Component {
 
     render() {
         return (
-            <div className="left">
+            <div className="left" onDragOver={(event) => { event.preventDefault(); }}>
                 <h3>组件列表</h3>
                 <div className="comp-list">
                     {this.props.compList.length !== 0 ? this.props.compList.map((item, index) => {
-                        return <div className="comp" key={index} draggable="true" onDragStart={(event) => { this.dragStart(event, index) }} onDragEnd={(event) => { this.dragEnd(event, index) }}>
+                        return <div className="comp" key={index} style={{'backgroundColor': item.active ? '#157ed8': null}} draggable="true" onDragStart={(event) => { this.dragStart(event, index) }} onDragEnd={(event) => { this.dragEnd(event, index) }}>
                             <span onClick={(event) => { this.clickComp(event, index) }}>{item.name}</span>
                             <span onClick={(event) => { this.deleteComp(event, index) }}>X</span>
                         </div>

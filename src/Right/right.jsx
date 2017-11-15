@@ -9,7 +9,7 @@ import './right.css';
 class Right extends Component {
     static propTypes = {
         activeElem: PropTypes.object,
-        changeTextState: PropTypes.func,
+        changeCompState: PropTypes.func,
         exportHtml: PropTypes.func
     }
 
@@ -19,15 +19,15 @@ class Right extends Component {
                 {this.props.activeElem ? <h3>{this.props.activeElem.name}</h3> : null}
                 {this.props.activeElem && this.props.activeElem.type === 'text' ?
                     <EditTextState activeElem={this.props.activeElem}
-                        changeTextState={this.props.changeTextState}
+                        changeCompState={this.props.changeCompState}
                     /> : null}
                 {this.props.activeElem && this.props.activeElem.type === 'link' ?
                     <EditLinkState activeElem={this.props.activeElem}
-                        changeLinkState={this.props.changeLinkState}
+                        changeCompState={this.props.changeCompState}
                     /> : null}
                 {this.props.activeElem && this.props.activeElem.type === 'img' ?
                     <EditImgState activeElem={this.props.activeElem}
-                        changeImgState={this.props.changeImgState}
+                        changeCompState={this.props.changeCompState}
                     /> : null}
                 <div className="export-btn"><Button onClick={ this.props.exportHtml }>导出</Button></div>
             </div>

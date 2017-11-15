@@ -1,4 +1,5 @@
 var path = require('path');
+var autoprefixer = require('autoprefixer');
 var node_modules = path.resolve(__dirname, 'node_modules');
 var pathToReact = path.resolve(node_modules, 'react/dist/react.min.js');
 
@@ -20,7 +21,7 @@ var config = {
             loader: 'babel'
         }, {
             test: /\.css$/,
-            loader: 'style!css'
+            loaders:['style-loader','css-loader','postcss-loader']
         }, {
             test: /\.less$/,
             loader: 'style!css!less'
@@ -28,7 +29,8 @@ var config = {
             test: /\.(png|jpg)$/,
             loader: 'url?limit=25000&name=../img/[name].[ext]'
         }]
-    }
+    },
+     postcss:[autoprefixer({browsers:['last 2 versions']})]
 };
 
 module.exports = config;

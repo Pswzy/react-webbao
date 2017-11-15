@@ -79,12 +79,6 @@ class App extends Component {
         this.setState({ compList: compList });
     }
 
-    outFocus: Function = (order) => {
-        let compList = [...this.state.compList];
-        compList[order].active = false;
-        this.setState({ compList: compList, activeElem: -1 });
-    }
-
     outFocusAll: Function = () => {
         if (this.state.compList.length !== 0) {
             let compList = [...this.state.compList];
@@ -110,19 +104,7 @@ class App extends Component {
         this.setState({ compList: compList });
     }
 
-    changeTextState: Function = (type, value) => {
-        let compList = [...this.state.compList];
-        compList[this.state.activeElem][type] = value;
-        this.setState({ compList: compList });
-    }
-
-    changeLinkState: Function = (type, value) => {
-        let compList = [...this.state.compList];
-        compList[this.state.activeElem][type] = value;
-        this.setState({ compList: compList });
-    }
-
-    changeImgState: Function = (type, value) => {
+    changeCompState: Function = (type, value) => {
         let compList = [...this.state.compList];
         compList[this.state.activeElem][type] = value;
         this.setState({ compList: compList });
@@ -137,13 +119,13 @@ class App extends Component {
 
     setListOrder: Function = (start, end) => {
         let compList = [...this.state.compList];
+        console.log(compList[start], compList[end], start, end);
+        compList[start].zIndex = compList[end].zIndex;
         if (start < end) {
-            compList[start].zIndex = compList[end].zIndex;
             for (let i = start + 1; i <= end; i ++) {
                 compList[i].zIndex --;
             }
         } else {
-            compList[start].zIndex = compList[end].zIndex;
             for (let i = end; i < start; i ++) {
                 compList[i].zIndex ++;
             }
@@ -183,13 +165,11 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="App" onDragOver={(event) => { event.preventDefault(); }} onClick={ this.outFocusAll }>
+            <div className="App" onClick={ this.outFocusAll }>
                 <Left compList={this.state.compList} createComponent={this.createComponent} removeComp={this.removeComp} getFocus={this.getFocus} setListOrder={this.setListOrder} />
-                <Mid compList={this.state.compList} changeTextVal={this.changeTextVal} outFocus={this.outFocus} getFocus={this.getFocus} setPosition={this.setPosition} />
+                <Mid compList={this.state.compList} changeTextVal={this.changeTextVal} getFocus={this.getFocus} setPosition={this.setPosition} />
                 <Right activeElem={this.state.compList[this.state.activeElem]}
-                    changeTextState={this.changeTextState}
-                    changeLinkState={this.changeLinkState}
-                    changeImgState={this.changeImgState}
+                    changeCompState={this.changeCompState}
                     exportHtml={this.exportHtml} />
             </div>
         );

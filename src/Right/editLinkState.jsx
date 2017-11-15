@@ -5,7 +5,7 @@ import './right.css';
 class EditLinkState extends Component {
     static propTypes = {
         activeElem: PropTypes.object,
-        changeLinkState: PropTypes.func
+        changeCompState: PropTypes.func
     }
 
     constructor(props) {
@@ -19,23 +19,23 @@ class EditLinkState extends Component {
             <div className="edit-link-state" onClick={(event) => { event.stopPropagation() }}>
                 <div className="link-state-label-input">
                     <label>名称:</label>
-                    <input type="text" value={this.props.activeElem.btnName} className="form-control" placeholder="请修改按钮名称" onChange={(evt) => { this.props.changeLinkState('btnName', evt.target.value) }} />
+                    <input type="text" value={this.props.activeElem.btnName} className="form-control" placeholder="请修改按钮名称" onChange={(evt) => { this.props.changeCompState('btnName', evt.target.value) }} />
                 </div>
                 <div className="link-state-label-input">
                     <label>高度:</label>
-                    <input type="number" value={this.props.activeElem.height} className="form-control" onChange={(evt) => { this.props.changeLinkState('height', evt.target.value) }} />
+                    <input type="number" value={this.props.activeElem.height} className="form-control" onChange={(evt) => { this.props.changeCompState('height', evt.target.value) }} />
                 </div>
                 <div className="link-state-label-input">
                     <label>宽度:</label>
-                    <input type="number" value={this.props.activeElem.width} className="form-control" onChange={(evt) => { this.props.changeLinkState('width', evt.target.value) }} />
+                    <input type="number" value={this.props.activeElem.width} className="form-control" onChange={(evt) => { this.props.changeCompState('width', evt.target.value) }} />
                 </div>
                 <div className="link-state-label-input">
                     <label>URL:</label>
-                    <input type="text" value={this.props.activeElem.url} className="form-control" onChange={(evt) => { this.props.changeLinkState('url', evt.target.value) }} />
+                    <input type="text" value={this.props.activeElem.url} className="form-control" onChange={(evt) => { this.props.changeCompState('url', evt.target.value) }} />
                 </div>
                 <div className="link-state-label-input">
                     <label>颜色:</label>
-                    <select className="form-control" value={this.props.activeElem.backColor} style={{ backgroundColor: this.props.activeElem.backColor }} onChange={(evt) => { this.props.changeLinkState('backColor', evt.target.value) }}>
+                    <select className="form-control" value={this.props.activeElem.backColor} style={{ backgroundColor: this.props.activeElem.backColor }} onChange={(evt) => { this.props.changeCompState('backColor', evt.target.value) }}>
                         <option value="red" style={{ backgroundColor: 'red' }}></option>
                         <option value="orange" style={{ backgroundColor: 'orange' }}></option>
                         <option value="yellow" style={{ backgroundColor: 'yellow' }}></option>

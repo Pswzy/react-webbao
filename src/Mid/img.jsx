@@ -32,9 +32,12 @@ class ImgComp extends Component {
 
     render() {
         const attr = this.props.attr;
+        let scale = attr.scale/100;
         let style = {
             width: attr.width + 'px',
             height: attr.height + 'px',
+            transform: 'scale(' + scale + ')',
+            transformOrigin: '0 0',
             zIndex: attr.zIndex
         };
         if (attr.active) {
@@ -47,7 +50,7 @@ class ImgComp extends Component {
         };
         return (
             <div className="img-comp" style={positionStyle} draggable="true" onDragStart={(event) => { this.dragStart(event) }} onDragEnd={(event) => { this.dragEnd(event) }}>
-                <img style={style} src={attr.src} onClick={(event) => { event.stopPropagation() }} onDoubleClick={() => { this.props.getFocus(this.props.order) }} />
+                <img style={style} src={attr.src} alt="图片组件" onClick={(event) => { event.stopPropagation() }} onDoubleClick={() => { this.props.getFocus(this.props.order) }} />
             </div>
         );
     }

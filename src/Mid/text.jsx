@@ -7,7 +7,6 @@ class TextComp extends Component {
         attr: PropTypes.object,
         order: PropTypes.number,
         changeTextVal: PropTypes.func,
-        outFocus: PropTypes.func,
         getFocus: PropTypes.func,
         setPosition: PropTypes.func
     }

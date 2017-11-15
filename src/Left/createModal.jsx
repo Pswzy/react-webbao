@@ -27,7 +27,7 @@ class CreateModal extends Component {
                     value: 'img',
                 }
             ],
-            inputText: '',
+            text: '',
             compName: '',
             link: {
                 name: '',
@@ -52,27 +52,15 @@ class CreateModal extends Component {
 
     changeValue: Function = (type, value) => {
         if (type === 'text') {
-            this.setState({ inputText: value, inputLink: '' });
+            this.setState({ text: value, inputLink: '' });
         } else {
-            this.setState({ inputText: '', inputLink: value });
+            this.setState({ text: '', inputLink: value });
         }
     }
 
     createComponent: Function = (event) => {
         event.stopPropagation();
-        switch (this.state.selectedType) {
-            case 'text':
-                this.props.createComponent(this.state.selectedType, this.state.inputText, this.state.compName);
-                break;
-            case 'link':
-                this.props.createComponent(this.state.selectedType, this.state.link, this.state.compName);
-                break;
-            case 'img':
-                this.props.createComponent(this.state.selectedType, this.state.img, this.state.compName);
-                break;
-            default:
-                break;
-        }
+        this.props.createComponent(this.state.selectedType, this.state[this.state.selectedType], this.state.compName);
         this.props.hideModal();
     }
 
@@ -118,7 +106,7 @@ class CreateModal extends Component {
                         })}
                     </div>
                     {this.state.selectedType === 'text' ? <div className="text-input">
-                        <textarea className="form-control" rows="3" value={this.state.inputText} placeholder="请输入文本内容" onChange={(evt) => { this.changeValue('text', evt.target.value) }} />
+                        <textarea className="form-control" rows="3" value={this.state.text} placeholder="请输入文本内容" onChange={(evt) => { this.changeValue('text', evt.target.value) }} />
                     </div> : null}
                     {this.state.selectedType === 'link' ? <div className="link-input">
                         <div style={{ margin: '5px 0' }}>
@@ -167,7 +155,7 @@ class CreateModal extends Component {
                         </div>
                         <div style={{ margin: '5px 0' }} className="upload-img">
                             <label>选择图片:</label>
-                            <img src={this.state.img.src} />
+                            <img src={this.state.img.src} alt="上传图片"/>
                             {/* {this.state.img.src ? <img src={this.state.img.src} /> : <div className="uploadBackGround"></div>} */}
                             <input type="file" id="file" onChange={(evt) => { this.changeImg('src', evt.target.value) }} />
                         </div>

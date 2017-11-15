@@ -5,7 +5,7 @@ import './right.css';
 class EditImgState extends Component {
     static propTypes = {
         activeElem: PropTypes.object,
-        changeImgState: PropTypes.func
+        changeCompState: PropTypes.func
     }
 
     constructor(props) {
@@ -19,15 +19,15 @@ class EditImgState extends Component {
             <div className="edit-img-state" onClick={(event) => { event.stopPropagation() }}>
                 <div className="img-state-label-input">
                     <label>高度:</label>
-                    <input type="number" value={this.props.activeElem.height} className="form-control" onChange={(evt) => { this.props.changeImgState('height', evt.target.value) }} />
+                    <input type="number" value={this.props.activeElem.height} className="form-control" onChange={(evt) => { this.props.changeCompState('height', evt.target.value) }} />
                 </div>
                 <div className="img-state-label-input">
                     <label>宽度:</label>
-                    <input type="number" value={this.props.activeElem.width} className="form-control" onChange={(evt) => { this.props.changeImgState('width', evt.target.value) }} />
+                    <input type="number" value={this.props.activeElem.width} className="form-control" onChange={(evt) => { this.props.changeCompState('width', evt.target.value) }} />
                 </div>
                 <div className="img-state-label-input">
                     <label>缩放:</label>
-                    <input type="number" className="img-state-scale form-control" value={this.props.activeElem.scale} onChange={(evt) => { this.props.changeImgState('scale', evt.target.value) }} />
+                    <input type="number" className="img-state-scale form-control" value={this.props.activeElem.scale} onChange={(evt) => { this.props.changeCompState('scale', evt.target.value) }} />
                     <label>%</label>
                 </div>
             </div>

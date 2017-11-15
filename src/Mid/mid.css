@@ -1,11 +1,10 @@
 .mid {
-    width: 490px;
-    height: 871px;
+    width: 30%;
+    height: 85%;
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-top: -435px;
-    margin-left: -245px;
+    transform: translate(-50%, -50%);
     background-color: white;
     overflow: hidden;
 }
