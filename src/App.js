@@ -16,6 +16,7 @@ class App extends Component {
     createComponent: Function = (type, value, name) => {
         let compList = [...this.state.compList];
         let zIndex = this.state.zIndex + 1;
+        let elem = document.getElementById('mid');
         let comp = {};
         switch (type) {
             case 'text':
@@ -30,6 +31,10 @@ class App extends Component {
                     fontStyle: 'normal',
                     left: 0,
                     top: 0,
+                    width: 200,
+                    perWidth: (200 / elem.offsetWidth) * 100,
+                    height: 20,
+                    perHeight: (20 / elem.offsetHeight) * 100,
                     zIndex: zIndex
                 }
                 compList.push(comp);
@@ -42,7 +47,9 @@ class App extends Component {
                     name: name,
                     active: true,
                     width: value.width,
+                    perWidth: (value.width / elem.offsetWidth) * 100,
                     height: value.height,
+                    perHeight: (value.height / elem.offsetHeight) * 100,
                     backColor: value.backColor,
                     url: value.url,
                     left: 0,
@@ -58,7 +65,9 @@ class App extends Component {
                     name: name,
                     active: true,
                     width: value.width,
+                    perWidth: (value.width / elem.offsetWidth) * 100,
                     height: value.height,
+                    perHeight: (value.height / elem.offsetHeight) * 100,
                     src: value.src,
                     scale: 100,
                     left: 0,
@@ -71,12 +80,6 @@ class App extends Component {
             default:
                 break;
         }
-    }
-
-    changeTextVal: Function = (value, order) => {
-        let compList = [...this.state.compList];
-        compList[order].value = value;
-        this.setState({ compList: compList });
     }
 
     outFocusAll: Function = () => {
@@ -106,6 +109,12 @@ class App extends Component {
 
     changeCompState: Function = (type, value) => {
         let compList = [...this.state.compList];
+        let elem = document.getElementById('mid');
+        if (type === 'width') {
+            compList[this.state.activeElem].perWidth = (value / elem.offsetWidth) * 100;
+        } else if (type === 'height') {
+            compList[this.state.activeElem].perHeight = (value / elem.offsetHeight) * 100;
+        }
         compList[this.state.activeElem][type] = value;
         this.setState({ compList: compList });
     }
@@ -119,15 +128,14 @@ class App extends Component {
 
     setListOrder: Function = (start, end) => {
         let compList = [...this.state.compList];
-        console.log(compList[start], compList[end], start, end);
         compList[start].zIndex = compList[end].zIndex;
         if (start < end) {
-            for (let i = start + 1; i <= end; i ++) {
-                compList[i].zIndex --;
+            for (let i = start + 1; i <= end; i++) {
+                compList[i].zIndex--;
             }
         } else {
-            for (let i = end; i < start; i ++) {
-                compList[i].zIndex ++;
+            for (let i = end; i < start; i++) {
+                compList[i].zIndex++;
             }
         }
         let startElem = compList.splice(start, 1);
@@ -140,7 +148,7 @@ class App extends Component {
         ev.initMouseEvent(
             "click", true, false, window, 0, 0, 0, 0, 0
             , false, false, false, false, 0, null
-            );
+        );
         obj.dispatchEvent(ev);
     }
 
@@ -163,11 +171,12 @@ class App extends Component {
         save_link.download = 'test.html';
         this.fake_click(save_link);
     }
+
     render() {
         return (
-            <div className="App" onClick={ this.outFocusAll }>
-                <Left compList={this.state.compList} createComponent={this.createComponent} removeComp={this.removeComp} getFocus={this.getFocus} setListOrder={this.setListOrder} />
-                <Mid compList={this.state.compList} changeTextVal={this.changeTextVal} getFocus={this.getFocus} setPosition={this.setPosition} />
+            <div className="App" onClick={this.outFocusAll}>
+                <Left compList={this.state.compList} outFocusAll={this.outFocusAll} createComponent={this.createComponent} removeComp={this.removeComp} getFocus={this.getFocus} setListOrder={this.setListOrder} />
+                <Mid compList={this.state.compList} changeCompState={this.changeCompState} getFocus={this.getFocus} setPosition={this.setPosition} />
                 <Right activeElem={this.state.compList[this.state.activeElem]}
                     changeCompState={this.changeCompState}
                     exportHtml={this.exportHtml} />

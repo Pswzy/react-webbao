@@ -79,9 +79,18 @@ class CreateModal extends Component {
         img[type] = value;
         if (type === 'src') {
             let fileObj = document.getElementById("file");
-            img[type] = window.URL.createObjectURL(fileObj.files[0]);
+            // img[type] = window.URL.createObjectURL(fileObj.files[0]);
+            let reader = new FileReader();
+            let that = this;
+            reader.onload = function (event) {
+                let src = event.target.result;
+                img[type] = src;
+                that.setState({ img: img });
+            };
+            reader.readAsDataURL(fileObj.files[0]);
+        } else {
+            this.setState({ img: img });
         }
-        this.setState({ img: img });
     }
 
     render() {
@@ -90,14 +99,14 @@ class CreateModal extends Component {
                 <Header>
                     <h3>创建组件</h3>
                     <div className="pull-right">
-                        <Button onClick={(event) => { this.createComponent(event) }}>创建</Button>
+                        {this.state.compName ? <Button onClick={(event) => { this.createComponent(event) }}>创建</Button> : <Button disabled>创建</Button>}
                         <Button onClick={this.props.hideModal}>取消</Button>
                     </div>
                 </Header>
                 <Body>
                     <div className="input-name">
                         <label>组件名称:</label>
-                        <input className="form-control" value={this.state.compName} placeholder="请输入组件名称" onChange={(evt) => this.changeName(evt.target.value)} />
+                        <input className="form-control" autoFocus="true" value={this.state.compName} placeholder="请输入组件名称" onChange={(evt) => this.changeName(evt.target.value)} />
                     </div>
                     <div className="select-type">
                         <label>选择组件类型:</label>
@@ -155,7 +164,7 @@ class CreateModal extends Component {
                         </div>
                         <div style={{ margin: '5px 0' }} className="upload-img">
                             <label>选择图片:</label>
-                            <img src={this.state.img.src} alt="上传图片"/>
+                            <img src={this.state.img.src} alt="上传图片" />
                             {/* {this.state.img.src ? <img src={this.state.img.src} /> : <div className="uploadBackGround"></div>} */}
                             <input type="file" id="file" onChange={(evt) => { this.changeImg('src', evt.target.value) }} />
                         </div>

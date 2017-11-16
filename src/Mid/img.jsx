@@ -25,8 +25,11 @@ class ImgComp extends Component {
         });
     }
     dragEnd: Function = (event) => {
-        let left = this.props.attr.left + event.clientX - this.state.clientX;
-        let top = this.props.attr.top + event.clientY - this.state.clientY;
+        let elem = document.getElementById('mid');
+        let midCompWidth = elem.offsetWidth;
+        let midCompHeight = elem.offsetHeight;
+        let left = this.props.attr.left + (event.clientX - this.state.clientX) / midCompWidth * 100;
+        let top = this.props.attr.top + (event.clientY - this.state.clientY) / midCompHeight * 100;
         this.props.setPosition({ order: this.props.order, left: left, top: top });
     }
 
@@ -34,8 +37,8 @@ class ImgComp extends Component {
         const attr = this.props.attr;
         let scale = attr.scale/100;
         let style = {
-            width: attr.width + 'px',
-            height: attr.height + 'px',
+            width: '100%',
+            height: '100%',
             transform: 'scale(' + scale + ')',
             transformOrigin: '0 0',
             zIndex: attr.zIndex
@@ -44,12 +47,14 @@ class ImgComp extends Component {
             style.border = '1px dashed red';
         }
         let positionStyle = {
-            left: attr.left,
-            top: attr.top,
+            width: attr.perWidth ? attr.perWidth + '%' : null,
+            height: attr.perHeight ? attr.perHeight + '%' : null,
+            left: attr.left + '%',
+            top: attr.top + '%',
             position: 'absolute'
         };
         return (
-            <div className="img-comp" style={positionStyle} draggable="true" onDragStart={(event) => { this.dragStart(event) }} onDragEnd={(event) => { this.dragEnd(event) }}>
+            <div className="img-comp" style={positionStyle} draggable={!this.props.attr.active} onDragStart={(event) => { return !this.props.attr.active ? this.dragStart(event) : null }} onDragEnd={(event) => { return !this.props.attr.active ? this.dragEnd(event) : null }}>
                 <img style={style} src={attr.src} alt="图片组件" onClick={(event) => { event.stopPropagation() }} onDoubleClick={() => { this.props.getFocus(this.props.order) }} />
             </div>
         );

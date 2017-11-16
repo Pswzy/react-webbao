@@ -8,9 +8,9 @@ import './mid.css';
 class Mid extends Component {
     static propTypes = {
         compList: PropTypes.array,
-        changeTextVal: PropTypes.func,
         getFocus: PropTypes.func,
-        setPosition: PropTypes.func
+        setPosition: PropTypes.func,
+        changeCompState: PropTypes.func
     }
 
     render() {
@@ -19,7 +19,7 @@ class Mid extends Component {
                 <div className="content">
                     {this.props.compList.length !== 0 ? this.props.compList.map((item, index) => {
                         if (item.type === 'text') {
-                            return <TextComp key={index} order={index} attr={item} setPosition={this.props.setPosition} changeTextVal={this.props.changeTextVal} getFocus={this.props.getFocus} />;
+                            return <TextComp key={index} order={index} attr={item} setPosition={this.props.setPosition} changeCompState={this.props.changeCompState} getFocus={this.props.getFocus} />;
                         } else if (item.type === 'link') {
                             return <LinkComp key={index} order={index} attr={item} setPosition={this.props.setPosition} getFocus={this.props.getFocus} />;
                         } else if (item.type === 'img') {

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import './right.css';
+import { Button, Modal } from 'react-bootstrap';
+import ChooseColor from './chooseColor';
 
 class EditTextState extends Component {
     static propTypes = {
@@ -16,7 +18,8 @@ class EditTextState extends Component {
             fontFamily: ['微软雅黑', '宋体'],
             fontSize: [],
             fontColor: ['red', 'orange', 'yellow', 'green', 'aqua', 'blue', 'purple', 'black', 'white'],
-            fontStyle: ['bold', 'normal', 'italic']
+            fontStyle: ['bold', 'normal', 'italic'],
+            selectColorModal: false
         }
     }
 
@@ -25,45 +28,46 @@ class EditTextState extends Component {
         let i = 12;
         while (i <= 72) {
             fontSize.push(i);
-            i ++;
+            i++;
         }
-        this.setState({fontSize: fontSize});
+        this.setState({ fontSize: fontSize });
+    }
+
+    showSelectColor: Function = () => {
+        this.setState({ selectColorModal: true });
+    }
+
+    hideModal: Function = () => {
+        this.setState({ selectColorModal: false });
     }
 
     render() {
         return (
             <div className="edit-text-state" onClick={(event) => { event.stopPropagation() }}>
-                <select className="form-control family" value={ this.props.activeElem.fontFamily } onChange={ (evt) => { this.props.changeCompState('fontFamily', evt.target.value) }} >
-                    <option value ="微软雅黑">微软雅黑</option>
-                    <option value ="宋体">宋体</option>
+                <select className="form-control family" value={this.props.activeElem.fontFamily} onChange={(evt) => { this.props.changeCompState('fontFamily', evt.target.value) }} >
+                    <option value="微软雅黑">微软雅黑</option>
+                    <option value="宋体">宋体</option>
                 </select>
                 <Select
-                    value={ this.props.activeElem.fontSize }
-                    options={ this.state.fontSize.map(item => { return { value: item, label: item }; }) }
-                    onChange={ (evt) => {
+                    value={this.props.activeElem.fontSize}
+                    options={this.state.fontSize.map(item => { return { value: item, label: item }; })}
+                    onChange={(evt) => {
                         this.props.changeCompState('fontSize', evt.value);
                     }}
-                    clearable={ false }
+                    clearable={false}
                 />
-                <select className="form-control" value={ this.props.activeElem.fontColor } style={{backgroundColor: this.props.activeElem.fontColor }} onChange={ (evt) => { this.props.changeCompState('fontColor', evt.target.value) }}>
-                    <option value ="red" style={{ backgroundColor: 'red'}}></option>
-                    <option value ="orange" style={{ backgroundColor: 'orange'}}></option>
-                    <option value="yellow" style={{ backgroundColor: 'yellow'}}></option>
-                    <option value="green" style={{ backgroundColor: 'green'}}></option>
-                    <option value ="aqua" style={{ backgroundColor: 'aqua'}}></option>
-                    <option value ="blue" style={{ backgroundColor: 'blue'}}></option>
-                    <option value="purple" style={{ backgroundColor: 'purple'}}></option>
-                    <option value="black" style={{ backgroundColor: 'black'}}></option>
-                    <option value ="white" style={{ backgroundColor: 'white'}}></option>
-                </select>
+                <Button className="select-color form-control" style={{ backgroundColor: this.props.activeElem.fontColor }} onClick={this.showSelectColor}></Button>
                 <Select
-                    value={ this.props.activeElem.fontStyle }
-                    options={ this.state.fontStyle.map(item => { return { value: item, label: item }; }) }
-                    onChange={ (evt) => {
+                    value={this.props.activeElem.fontStyle}
+                    options={this.state.fontStyle.map(item => { return { value: item, label: item }; })}
+                    onChange={(evt) => {
                         this.props.changeCompState('fontStyle', evt.value);
                     }}
-                    clearable={ false }
+                    clearable={false}
                 />
+                <Modal className="select-color-modal" show={this.state.selectColorModal} onHide={this.hideModal}>
+                    <ChooseColor hideModal={this.hideModal} changeCompState={this.props.changeCompState} colorType="fontColor" selectedColor={this.props.activeElem.fontColor} />
+                </Modal>
             </div>
         );
     }

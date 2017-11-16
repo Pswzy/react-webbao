@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 import './mid.css';
 
 class LinkComp extends Component {
@@ -25,43 +24,55 @@ class LinkComp extends Component {
         });
     }
     dragEnd: Function = (event) => {
-        let left = this.props.attr.left + event.clientX - this.state.clientX;
-        let top = this.props.attr.top + event.clientY - this.state.clientY;
+        let elem = document.getElementById('mid');
+        let midCompWidth = elem.offsetWidth;
+        let midCompHeight = elem.offsetHeight;
+        let left = this.props.attr.left + (event.clientX - this.state.clientX) / midCompWidth * 100;
+        let top = this.props.attr.top + (event.clientY - this.state.clientY) / midCompHeight * 100;
         this.props.setPosition({ order: this.props.order, left: left, top: top });
     }
 
     time: Object = null;
     openLink: Function = (event, url) => {
         event.stopPropagation();
+        event.preventDefault();
         clearTimeout(this.time);  
-        this.time = setTimeout(function(){  
+        this.time = setTimeout(function(){ 
             window.open(url); 
         },300);
+        return false;
     }
 
-    editLink: Function = () => {
+    editLink: Function = (event) => {
         clearTimeout(this.time); 
+        event.preventDefault();
         this.props.getFocus(this.props.order);
     }
     render() {
         const attr = this.props.attr;
         let style = {
-            width: attr.width + 'px',
-            height: attr.height + 'px',
+            width: '100%',
+            height: '100%',
             backgroundColor: attr.backColor,
-            zIndex: attr.zIndex
+            zIndex: attr.zIndex,
+            display: 'inline-block',
+            textDecoration: 'none',
+            lineHeight: attr.height + 'px',
+            textAlign: 'center'
         };
         if (this.props.attr.active) {
             style.border = '1px dashed red';
         }
         let positionStyle = {
-            left: this.props.attr.left,
-            top: this.props.attr.top,
+            width: attr.perWidth ? attr.perWidth + '%' : null,
+            height: attr.perHeight ? attr.perHeight + '%' : null,
+            left: this.props.attr.left + '%',
+            top: this.props.attr.top + '%',
             position: 'absolute'
         };
         return (
-            <div className="link-comp" style={positionStyle} draggable="true" onDragStart={(event) => { this.dragStart(event) }} onDragEnd={(event) => { this.dragEnd(event) }}>
-                <Button style={style} onClick={(event) => { this.openLink(event, attr.url) }} onDoubleClick={ this.editLink }>{attr.btnName}</Button>
+            <div className="link-comp" style={positionStyle} draggable={!this.props.attr.active} onDragStart={(event) => { return !this.props.attr.active ? this.dragStart(event) : null }} onDragEnd={(event) => { return !this.props.attr.active ? this.dragEnd(event) : null }}>
+                <a onClick={(event) => { this.openLink(event, attr.url) }} target='_blank' href={attr.url} onDoubleClick={(event) => { this.editLink(event) } } style={style}>{attr.btnName}</a>
             </div>
         );
     }

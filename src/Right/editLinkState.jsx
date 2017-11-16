@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button, Modal } from 'react-bootstrap';
+import ChooseColor from './chooseColor';
 import './right.css';
 
 class EditLinkState extends Component {
@@ -11,7 +13,16 @@ class EditLinkState extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectColorModal: false
         }
+    }
+
+    showSelectColor: Function = () => {
+        this.setState({ selectColorModal: true });
+    }
+
+    hideModal: Function = () => {
+        this.setState({ selectColorModal: false });
     }
 
     render() {
@@ -35,18 +46,11 @@ class EditLinkState extends Component {
                 </div>
                 <div className="link-state-label-input">
                     <label>颜色:</label>
-                    <select className="form-control" value={this.props.activeElem.backColor} style={{ backgroundColor: this.props.activeElem.backColor }} onChange={(evt) => { this.props.changeCompState('backColor', evt.target.value) }}>
-                        <option value="red" style={{ backgroundColor: 'red' }}></option>
-                        <option value="orange" style={{ backgroundColor: 'orange' }}></option>
-                        <option value="yellow" style={{ backgroundColor: 'yellow' }}></option>
-                        <option value="green" style={{ backgroundColor: 'green' }}></option>
-                        <option value="aqua" style={{ backgroundColor: 'aqua' }}></option>
-                        <option value="blue" style={{ backgroundColor: 'blue' }}></option>
-                        <option value="purple" style={{ backgroundColor: 'purple' }}></option>
-                        <option value="black" style={{ backgroundColor: 'black' }}></option>
-                        <option value="white" style={{ backgroundColor: 'white' }}></option>
-                    </select>
+                    <Button className="form-control" style={{ backgroundColor: this.props.activeElem.backColor }} onClick={this.showSelectColor}></Button>
                 </div>
+                <Modal className="select-color-modal" show={this.state.selectColorModal} onHide={this.hideModal}>
+                    <ChooseColor hideModal={this.hideModal} changeCompState={this.props.changeCompState} colorType="backColor" selectedColor={this.props.activeElem.backColor} />
+                </Modal>
             </div>
         );
     }

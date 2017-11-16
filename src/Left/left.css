@@ -127,3 +127,33 @@
     left: 80px;
     top: 0;
 }
+
+
+.delete-modal {
+    height: 100%;
+}
+
+.delete-modal .modal-dialog {
+    height: 100%;
+    width: 400px;
+}
+
+.delete-modal .modal-dialog .modal-content {
+    margin-top: 200px;
+    height: 100px;
+    text-align: center;
+}
+
+.delete-modal .modal-dialog .modal-content button {
+   margin: 0 10px;
+}
+
+.delete-modal .modal-dialog .modal-content .modal-header {
+    padding: 5px;
+    height: 40px;
+}
+
+.delete-modal .modal-dialog .modal-content .modal-header h5 {
+   width: 100%;
+   text-align: center;
+}
