@@ -12,7 +12,8 @@ class Left extends Component {
         getFocus: PropTypes.func,
         compList: PropTypes.array,
         setListOrder: PropTypes.func,
-        outFocusAll: PropTypes.func
+        outFocusAll: PropTypes.func,
+        costomizeComponent: PropTypes.func
     }
     constructor(props) {
         super(props);
@@ -107,7 +108,7 @@ class Left extends Component {
                 </div>
                 <div className="create-btn"><Button onClick={this.createComp}>新增组件</Button></div>
                 <Modal className="create-modal" show={this.state.showModal} onHide={this.hideModal}>
-                    <CreateModal hideModal={this.hideModal} createComponent={this.props.createComponent} />
+                    <CreateModal hideModal={this.hideModal} createComponent={this.props.createComponent} costomizeComponent={ this.props.costomizeComponent} />
                 </Modal>
                 <Modal className="delete-modal" show={this.state.deleteModal.show} onHide={this.hideDeleteModal}>
                     <DeleteModal hideModal={this.hideDeleteModal} deleteComp={this.deleteComp} />

@@ -7,7 +7,8 @@ import './left.css';
 class CreateModal extends Component {
     static propTypes = {
         hideModal: PropTypes.func,
-        createComponent: PropTypes.func
+        createComponent: PropTypes.func,
+        costomizeComponent: PropTypes.func
     }
     constructor(props) {
         super(props);
@@ -64,6 +65,12 @@ class CreateModal extends Component {
         this.props.hideModal();
     }
 
+    costomizeComponent: Function = (event) => {
+        event.stopPropagation();
+        this.props.costomizeComponent(this.state.compName);
+        this.props.hideModal();
+    }
+
     changeName: Function = (name) => {
         this.setState({ compName: name });
     }
@@ -98,10 +105,14 @@ class CreateModal extends Component {
             <div className="create-page">
                 <Header>
                     <h3>创建组件</h3>
-                    <div className="pull-right">
+                    { this.state.selectedType !== 'text' ? <div className="pull-right">
                         {this.state.compName ? <Button onClick={(event) => { this.createComponent(event) }}>创建</Button> : <Button disabled>创建</Button>}
                         <Button onClick={this.props.hideModal}>取消</Button>
-                    </div>
+                    </div> : <div className="pull-right">
+                        {this.state.compName ? <Button onClick={(event) => { this.costomizeComponent(event) }}>划区创建</Button> : <Button disabled>划区创建</Button>}
+                        {this.state.compName ? <Button onClick={(event) => { this.createComponent(event) }}>直接创建</Button> : <Button disabled>直接创建</Button>}
+                        <Button onClick={this.props.hideModal}>取消</Button>
+                    </div> }
                 </Header>
                 <Body>
                     <div className="input-name">

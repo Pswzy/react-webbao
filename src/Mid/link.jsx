@@ -54,7 +54,6 @@ class LinkComp extends Component {
             width: '100%',
             height: '100%',
             backgroundColor: attr.backColor,
-            zIndex: attr.zIndex,
             display: 'inline-block',
             textDecoration: 'none',
             lineHeight: attr.height + 'px',
@@ -68,6 +67,7 @@ class LinkComp extends Component {
             height: attr.perHeight ? attr.perHeight + '%' : null,
             left: this.props.attr.left + '%',
             top: this.props.attr.top + '%',
+            zIndex: attr.zIndex,            
             position: 'absolute'
         };
         return (

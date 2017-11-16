@@ -10,7 +10,8 @@ class App extends Component {
         this.state = {
             compList: [],
             activeElem: 0,
-            zIndex: 1
+            zIndex: 1,
+            costomizeState: false
         }
     }
     createComponent: Function = (type, value, name) => {
@@ -35,7 +36,9 @@ class App extends Component {
                     perWidth: (200 / elem.offsetWidth) * 100,
                     height: 20,
                     perHeight: (20 / elem.offsetHeight) * 100,
-                    zIndex: zIndex
+                    minHeight: 20,
+                    zIndex: zIndex,
+                    costomize: false
                 }
                 compList.push(comp);
                 this.setState({ compList: compList, activeElem: compList.length - 1, zIndex: zIndex });
@@ -83,7 +86,7 @@ class App extends Component {
     }
 
     outFocusAll: Function = () => {
-        if (this.state.compList.length !== 0) {
+        if (this.state.compList.length !== 0 && !this.state.costomizeState) {
             let compList = [...this.state.compList];
             if (compList[this.state.activeElem]) {
                 compList[this.state.activeElem].active = false;
@@ -172,11 +175,52 @@ class App extends Component {
         this.fake_click(save_link);
     }
 
+    costomizeComponent: Function = (name) => {
+        let compList = [...this.state.compList];
+        let zIndex = this.state.zIndex + 1;
+        let elem = document.getElementById('mid');
+        let comp = {
+            type: 'text',
+            value: '',
+            name: name,
+            active: true,
+            fontFamily: '微软雅黑',
+            fontColor: 'black',
+            fontSize: 16,
+            fontStyle: 'normal',
+            left: 0,
+            top: 0,
+            width: 0,
+            perWidth: 0,
+            height: 0,
+            perHeight: 0,
+            minHeight: 0,
+            zIndex: zIndex,
+            costomize: true
+        }
+        compList.push(comp);
+        this.setState({ compList: compList, activeElem: compList.length - 1, zIndex: zIndex, costomizeState: true });
+    }
+
+    endCostomize: Function = (width, height) => {
+        let compList = [...this.state.compList];
+        let elem = document.getElementById('mid');
+        compList[this.state.activeElem].perWidth = (width / elem.offsetWidth) * 100;
+        compList[this.state.activeElem].perHeight = (height / elem.offsetHeight) * 100;
+        compList[this.state.activeElem].width = width;
+        compList[this.state.activeElem].height = height;
+        compList[this.state.activeElem].costomize = false;
+        setTimeout(() => {
+            this.setState({ compList: compList, costomizeState: false });
+        }, 300)
+    }
+
     render() {
         return (
             <div className="App" onClick={this.outFocusAll}>
-                <Left compList={this.state.compList} outFocusAll={this.outFocusAll} createComponent={this.createComponent} removeComp={this.removeComp} getFocus={this.getFocus} setListOrder={this.setListOrder} />
-                <Mid compList={this.state.compList} changeCompState={this.changeCompState} getFocus={this.getFocus} setPosition={this.setPosition} />
+                <Left compList={this.state.compList} outFocusAll={this.outFocusAll} createComponent={this.createComponent}
+                    removeComp={this.removeComp} getFocus={this.getFocus} setListOrder={this.setListOrder} costomizeComponent={this.costomizeComponent} />
+                <Mid activeOrder={this.state.activeElem} endCostomize={this.endCostomize} compList={this.state.compList} costomizeState={this.state.costomizeState} changeCompState={this.changeCompState} getFocus={this.getFocus} setPosition={this.setPosition} />
                 <Right activeElem={this.state.compList[this.state.activeElem]}
                     changeCompState={this.changeCompState}
                     exportHtml={this.exportHtml} />

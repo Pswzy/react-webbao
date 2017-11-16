@@ -63,10 +63,10 @@
 
 .create-page h3 {
     position: absolute;
-    width: 70%;
+    left: 50%;
+    transform: translate(-70%, 0);
     line-height: 34px;
     margin: auto;
-    text-align: center;
 }
 
 .create-page .pull-right button {

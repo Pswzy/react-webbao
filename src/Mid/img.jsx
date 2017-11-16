@@ -40,8 +40,7 @@ class ImgComp extends Component {
             width: '100%',
             height: '100%',
             transform: 'scale(' + scale + ')',
-            transformOrigin: '0 0',
-            zIndex: attr.zIndex
+            transformOrigin: '0 0'
         };
         if (attr.active) {
             style.border = '1px dashed red';
@@ -51,7 +50,8 @@ class ImgComp extends Component {
             height: attr.perHeight ? attr.perHeight + '%' : null,
             left: attr.left + '%',
             top: attr.top + '%',
-            position: 'absolute'
+            position: 'absolute',
+            zIndex: attr.zIndex            
         };
         return (
             <div className="img-comp" style={positionStyle} draggable={!this.props.attr.active} onDragStart={(event) => { return !this.props.attr.active ? this.dragStart(event) : null }} onDragEnd={(event) => { return !this.props.attr.active ? this.dragEnd(event) : null }}>
