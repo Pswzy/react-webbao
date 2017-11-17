@@ -111,15 +111,17 @@ class App extends Component {
     }
 
     changeCompState: Function = (type, value) => {
-        let compList = [...this.state.compList];
-        let elem = document.getElementById('mid');
-        if (type === 'width') {
-            compList[this.state.activeElem].perWidth = (value / elem.offsetWidth) * 100;
-        } else if (type === 'height') {
-            compList[this.state.activeElem].perHeight = (value / elem.offsetHeight) * 100;
+        if (this.state.activeElem !== -1) {
+            let compList = [...this.state.compList];
+            let elem = document.getElementById('mid');
+            if (type === 'width') {
+                compList[this.state.activeElem].perWidth = (value / elem.offsetWidth) * 100;
+            } else if (type === 'height') {
+                compList[this.state.activeElem].perHeight = (value / elem.offsetHeight) * 100;
+            }
+            compList[this.state.activeElem][type] = value;
+            this.setState({ compList: compList });
         }
-        compList[this.state.activeElem][type] = value;
-        this.setState({ compList: compList });
     }
 
     setPosition: Function = (obj) => {

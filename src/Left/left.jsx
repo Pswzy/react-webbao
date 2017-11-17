@@ -40,6 +40,7 @@ class Left extends Component {
             clientY: event.clientY
         });
     }
+    
     dragEnd: Function = (event, index) => {
         let moveHeight = event.clientY - this.state.clientY;
         let end = 0;

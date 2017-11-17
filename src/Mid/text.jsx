@@ -48,12 +48,6 @@ class TextComp extends Component {
 
     changeVal: Function = (event) => {
         this.props.changeCompState('value', event.target.value);
-        // let reg = /^[0-9]+/g;
-        // let result = reg.exec(document.getElementById('text' + this.props.order).scrollHeight);
-        // let height = result ? result[0] : null;
-        // if (height !== parseInt(this.props.attr.height, 10) - 2) {
-        //     this.props.changeCompState('height', parseInt(height, 10) + 2);
-        // }
     }
     getFocus: Function = (order) => {
         this.props.getFocus(order);
@@ -82,18 +76,9 @@ class TextComp extends Component {
        
         style.border = this.props.attr.active ? '1px dashed red' : '1px solid #ccbfbf';
         return (
-            /*<div className="text-comp" id={'div' + this.props.order} onClick={(event) => { event.stopPropagation() }} style={positionStyle} draggable={!this.props.attr.active} onDragStart={(event) => { this.dragStart(event) }} onDragEnd={(event) => { this.dragEnd(event) }}>
-                 {
-                    this.props.attr.active ? <textarea autoFocus="true"  className="edit-text form-control" style={style} value={this.props.attr.value}
-                        onChange={(evt) => this.props.changeTextVal(evt.target.value, this.props.order)} />
-                        : <textarea className="view-text form-control" readOnly style={style} value={this.props.attr.value} onDoubleClick={() => { this.props.getFocus(this.props.order) }} />
-                } 
-                <textarea ref='myTextInput' id={'text' + this.props.order} style={style} value={this.props.attr.value} readOnly={!this.props.attr.active} onDoubleClick={() => { return !this.props.attr.active ? this.getFocus(this.props.order) : null }} onChange={(evt) => this.changeVal(evt)} />
-                 <div className="edit-div" ref='myTextInput' id={'text' + this.props.order} style={style} contentEditable ={this.props.attr.active} onDoubleClick={() => { return !this.props.attr.active ? this.getFocus(this.props.order) : null }} onChange={(evt) => this.changeVal(evt)}>{this.props.attr.value}</div> 
-            </div>*/
             <div ref='myTextInput' onClick={(event) => { event.stopPropagation() }} 
-                 draggable={!this.props.attr.active} onDragStart={(event) => { this.dragStart(event) }}
-                 onDragEnd={(event) => { this.dragEnd(event) }} 
+                 draggable={!this.props.attr.active} onDragStart={(event) => { return !this.props.attr.active ? this.dragStart(event) : null }}
+                 onDragEnd={(event) => { return !this.props.attr.active ? this.dragEnd(event) : null }} 
             id={'text' + this.props.order} style={style} contentEditable ={this.props.attr.active}
             onDoubleClick={() => { return !this.props.attr.active ? this.getFocus(this.props.order) : null }}
              onChange={(evt) => this.changeVal(evt)}>{this.props.attr.value}</div> 
